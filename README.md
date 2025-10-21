@@ -1,1 +1,145 @@
 # Lab5Web
+```
+Nama  : Fathan Atallah Rasya Nugraha
+NIM   : 312410425
+Kelas : TI.24.A3
+```
+
+## Tampilan Form Validasi
+![gambar](picture/form_blank.png)<br>
+Pengguna diminta untuk memasukkan Nama, Alamat Email, dan Password.
+
+## Tampilan Form ketika tidak diisi
+![gambar](picture/form_warn.png)<br>
+Saat tidak diisi dan menekan daftar maka hasilnya akan muncul peringatan.
+
+## Code
+### HTML
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validasi Sederhana</title>
+  <style>
+  <!--Css-->
+  </style>
+</head>
+<body>
+  <h2>Form Pendaftaran</h2>
+
+  <form id="registerForm">
+    <label for="name">Nama:</label>
+    <input type="text" id="name" placeholder="Masukkan nama">
+    <div class="error" id="nameError"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Masukkan email">
+    <div class="error" id="emailError"></div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Masukkan password">
+    <div class="error" id="passwordError"></div>
+
+    <button type="submit">Daftar</button>
+  </form>
+
+  <script>
+  <!--javascript-->
+  </script>
+</body>
+</html>
+
+```
+
+### CSS
+```css
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+```
+
+### Javascript
+```js
+    const form = document.getElementById("registerForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+
+      nameError.textContent = "";
+      emailError.textContent = "";
+      passwordError.textContent = "";
+
+      let isValid = true;
+
+      if (name === "") {
+        nameError.textContent = "Nama tidak boleh kosong";
+        isValid = false;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (email === "") {
+        emailError.textContent = "Email tidak boleh kosong";
+        isValid = false;
+      } else if (!email.match(emailPattern)) {
+        emailError.textContent = "Format email tidak valid";
+        isValid = false;
+      }
+
+      if (password.length < 6) {
+        passwordError.textContent = "Password minimal 6 karakter";
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert("Pendaftaran berhasil!");
+        form.reset();
+      }
+    });
+```
